@@ -1,0 +1,24 @@
+.list {
+  width: 90vw;
+  margin-bottom: 100px;
+}
+
+/* https://codepen.io/sosuke/pen/Pjoqqp */
+.iconPlus {
+  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(233deg) brightness(104%) contrast(104%);
+  width: 40px;
+}
+
+.buttonIcon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+
+  position: fixed;
+  bottom: 40px;
+  right: 5vw;
+}

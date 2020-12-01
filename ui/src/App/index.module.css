@@ -1,0 +1,46 @@
+:root {
+  --main-bg-color: #282c34;
+  --primary-color: white;
+  --secondary-color: #b3b3b3;
+  --warning-color: #ffc064;
+  --error-color: #da3e52;
+  --success-color: #69b578;
+}
+
+.app {
+  background-color: var(--main-bg-color);
+  border-radius: 4px;
+  min-height: 100vh;
+  color: var(--primary-color);
+  font-size: calc(10px + 2vmin);
+}
+
+.app p {
+  margin: 0.4rem;
+}
+
+.header {
+  position: sticky;
+  background-color: var(--main-bg-color);
+  z-index: 1;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.clock {
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.timeOffset {
+  color: var(--secondary-color);
+  font-size: smaller;
+}

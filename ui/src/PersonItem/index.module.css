@@ -1,0 +1,83 @@
+.clock {
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.timeOffset {
+  color: var(--secondary-color);
+  font-size: smaller;
+}
+
+.nonWorkingHours {
+  color: var(--warning-color);
+}
+
+.person {
+  padding: 0.7em 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px dotted #6b6b6b;
+}
+
+.personLeft {
+  display: flex;
+  align-items: center;
+}
+
+.personActions {
+  display: flex;
+  flex-direction: column;
+  width: 20px;
+  margin-right: 10px;
+  height: 50px;
+  justify-content: center;
+}
+
+.personActions img { width: 20px; }
+
+.personActions button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+}
+
+.personData {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.personData input {
+  background: var(--main-bg-color);
+  color: var(--primary-color);
+  font-size: calc(10px + 2vmin);
+  outline: dashed var(--primary-color) 1px;
+  border: none;
+}
+
+.personData select {
+  background: var(--main-bg-color);
+  color: var(--primary-color);
+  font-size: smaller;
+  outline: dashed var(--primary-color) 1px;
+  border: none;
+}
+
+.person .tz {
+  color: var(--secondary-color);
+  font-size: smaller;
+  max-width: 45vw;
+  word-break: break-all;
+}
+
+/* https://codepen.io/sosuke/pen/Pjoqqp */
+.iconTrash {
+  filter: invert(18%) sepia(85%) saturate(7500%) hue-rotate(358deg) brightness(96%) contrast(115%);
+}

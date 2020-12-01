@@ -1,0 +1,24 @@
+{
+  "name": "when-are-you",
+  "version": "0.1.0",
+  "description": "An application that lives on your tray and shows you 'when' people is.",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "start": "npm run build && electron ./dist/main.js",
+    "start-debug": "npm run build && electron --inspect=5858 ./dist/main.js"
+  },
+  "keywords": [
+      "timezones",
+      "people",
+      "world"
+  ],
+  "author": "Ivan",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.8.1",
+    "@typescript-eslint/parser": "^4.8.1",
+    "electron": "^11.0.0",
+    "eslint": "^7.0.0",
+    "typescript": "^4.0.0"
+  }
+}
