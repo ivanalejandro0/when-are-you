@@ -38,11 +38,15 @@ function createWindow(): void {
   globalShortcut.register("Ctrl+Alt+w", () => toggleWindowVisibility());
 
   mainWindow.on('ready-to-show', () => {
+    mainWindow.setVisibleOnAllWorkspaces(true);
+
+    // comment this out to start the app hidden
+    showWindowUnderTray(mainWindow, tray);
+
     if (app.dock) {
+      // hide app icon from the dock on Mac
       app.dock.hide();
     }
-    showWindowUnderTray(mainWindow, tray);
-    mainWindow.setVisibleOnAllWorkspaces(true);
   });
 
   mainWindow.on('blur', () => { mainWindow.hide() });
