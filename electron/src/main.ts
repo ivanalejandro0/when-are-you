@@ -1,4 +1,4 @@
-import { app, BrowserWindow, globalShortcut } from "electron";
+import { app, BrowserWindow, globalShortcut, protocol } from "electron";
 import * as path from "path";
 
 import { createTray, showWindowUnderTray } from "./tray";
@@ -6,7 +6,32 @@ import { createTray, showWindowUnderTray } from "./tray";
 let mainWindow: Electron.BrowserWindow;
 let tray: Electron.Tray;
 
+// TODO: de-hardcode this
+const isProduction = true;
+
+const UI_PATH = path.join(__dirname, "../dist-ui/");
+
+function interceptFileProtocol() {
+  protocol.interceptFileProtocol("file", (request, callback) => {
+    // remove the "file://" prefix from the url
+    let url = request.url.substr(7);
+
+    // rewrite urls coming from the Snowpack build
+    // into something Electron can reach
+    if (
+      url.startsWith("/_dist_/") ||
+      url.startsWith("/web_modules/") ||
+      url.startsWith("/__snowpack__/")
+    ) {
+      url = path.join(UI_PATH, url);
+    }
+
+    callback({ path: url });
+  });
+}
+
 function createWindow(): void {
+  interceptFileProtocol();
   // Create the browser window.
   mainWindow = new BrowserWindow({
     height: 680,
@@ -21,10 +46,12 @@ function createWindow(): void {
 
   tray = createTray(mainWindow);
 
-  // and load the index.html of the app.
-  // mainWindow.loadFile(path.join(__dirname, "../index.html"));
-  const localServer = 'http://localhost:8080/';
-  mainWindow.loadURL(localServer);
+  if (isProduction) {
+    mainWindow.loadFile(path.join(UI_PATH, "index.html"));
+  } else {
+    const localServer = 'http://localhost:8080/';
+    mainWindow.loadURL(localServer);
+  }
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools();

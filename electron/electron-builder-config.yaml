@@ -7,6 +7,7 @@ files:
       - ./dist/**/*
       - ./clock.png
       - package.json
+      - ./dist-ui/**/*
 mac:
   category: your.app.category.type
 electronVersion: 11.0.1
