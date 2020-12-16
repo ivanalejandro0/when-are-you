@@ -1,4 +1,6 @@
 import { app, Menu, Tray, nativeImage } from "electron";
+
+import * as process from 'process';
 import * as path from "path";
 
 function createNativeImage(): Electron.NativeImage {
@@ -59,6 +61,13 @@ export function createTray(browserWindow: Electron.BrowserWindow): Electron.Tray
     {type: "separator"},
     {label: "Quit", type: "normal", click: onQuit},
   ]);
+
+  // On Linux there's no handler for the 'right-click' event,
+  // as of Electron 11.x at least.
+  // So we set the context menu for it, which we don't want for OSX.
+  if (process.platform === 'linux') {
+    tray.setContextMenu(trayMenu);
+  }
 
   tray.on("click", handleTrayClick);
   tray.on('right-click', function() {
