@@ -62,17 +62,24 @@ export function createTray(browserWindow: Electron.BrowserWindow): Electron.Tray
     {label: "Quit", type: "normal", click: onQuit},
   ]);
 
-  // On Linux there's no handler for the 'right-click' event,
-  // as of Electron 11.x at least.
-  // So we set the context menu for it, which we don't want for OSX.
+  // We want the context menu to be shown when the tray icon is right-clicked.
+  // Left-click is reserved to show/hide the app.
+
+
   if (process.platform === 'linux') {
+    // On Linux, the context menu is shown when the tray icon is right-clicked,
+    // so we can use the default context menu.
     tray.setContextMenu(trayMenu);
+  } else if (process.platform === 'darwin') {
+    // On OSX, the context menu is shown when the tray icon is left-clicked,
+    // so we need to explicitly handle the 'right-click' event
+    tray.on('right-click', function() {
+      tray.popUpContextMenu(trayMenu)
+    });
   }
+  // TODO: Windows?
 
   tray.on("click", handleTrayClick);
-  tray.on('right-click', function() {
-    tray.popUpContextMenu(trayMenu)
-  });
 
   return tray;
 }
