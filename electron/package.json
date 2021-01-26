@@ -8,8 +8,14 @@
     "watch": "tsc -w",
     "start": "$npm_execpath run build && electron ./dist/main.js",
     "start-debug": "$npm_execpath run build && electron --inspect=5858 ./dist/main.js",
-    "pkg": "electron-builder --config ./electron-builder-config.yaml --dir --mac",
-    "pkg-linux": "electron-builder --config ./electron-builder-config.yaml --dir --linux tar.xz"
+
+    "pkg": "$npm_execpath run pkg:mac && $npm_execpath run pkg:linux",
+    "pkg:linux": "electron-builder --config ./electron-builder-config.yaml --linux tar.xz",
+    "pkg:mac": "electron-builder --config ./electron-builder-config.yaml --mac",
+
+    "pkg-dir": "$npm_execpath run pkg-dir:mac && $npm_execpath run pkg-dir:linux",
+    "pkg-dir:linux": "electron-builder --config ./electron-builder-config.yaml --dir --linux tar.xz",
+    "pkg-dir:mac": "electron-builder --config ./electron-builder-config.yaml --dir --mac"
   },
   "keywords": [
     "timezones",
