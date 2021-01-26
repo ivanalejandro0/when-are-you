@@ -14,8 +14,10 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
 
-  release:
+  create_release:
     runs-on: ubuntu-latest
+    outputs:
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
     steps:
       - name: Create Release
         id: create_release
@@ -29,6 +31,7 @@ jobs:
           prerelease: true
 
   build:
+    needs: create_release
     strategy:
       matrix:
         build: [linux, mac]
@@ -83,7 +86,7 @@ jobs:
           # to get its outputs object, which include a `upload_url`. See this
           # blog post for more info:
           # https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          upload_url: ${{ needs.create_release.outputs.upload_url }}
           asset_path: ./electron/pkg/when-are-you-0.1.0.tar.xz
           asset_name: when-are-you-${{ github.ref }}.tar.xz
           asset_content_type: application/x-xz-compressed-tar
@@ -94,7 +97,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          upload_url: ${{ needs.create_release.outputs.upload_url }}
           asset_path: ./electron/pkg/when-are-you-0.1.0.dmg
           asset_name: when-are-you-${{ github.ref }}.dmg
           asset_content_type: application/x-apple-diskimage
