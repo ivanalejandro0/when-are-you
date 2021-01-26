@@ -1,0 +1,95 @@
+name: build-and-release
+
+# Controls when the action will run.
+on:
+  # Triggers the workflow on push event but only for tags
+  push:
+    # Sequence of patterns matched against refs/tags
+    tags:
+      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+
+      # Runs a set of commands using the runners shell
+      - name: Build UI
+        run: |
+          cd ui
+          yarn
+          yarn run build
+
+      # Runs a set of commands using the runners shell
+      - name: Build Electron
+        run: |
+          cd electron
+          yarn
+          yarn run build
+
+      - name: Package linux app
+        run: |
+          cd electron
+
+          # copy ui into electron work dir
+          cp -R ../ui/build dist-ui/
+
+          # run builder
+          yarn run pkg:linux
+
+      - name: Package Mac app
+        run: |
+          cd electron
+
+          # copy ui into electron work dir
+          cp -R ../ui/build dist-ui/
+
+          # run builder
+          yarn run pkg:mac
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: true
+          prerelease: true
+
+      - name: Upload Linux build
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          # This pulls from the CREATE RELEASE step above, referencing it's ID
+          # to get its outputs object, which include a `upload_url`. See this
+          # blog post for more info:
+          # https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./electron/pkg/when-are-you-0.1.0.tar.xz
+          asset_name: when-are-you-${{ github.ref }}.tar.xz
+          asset_content_type: application/x-xz-compressed-tar
+
+      - name: Upload Mac build
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          asset_path: ./electron/pkg/when-are-you-0.1.0.dmg
+          asset_name: when-are-you-${{ github.ref }}.dmg
+          asset_content_type: application/x-apple-diskimage
