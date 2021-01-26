@@ -13,10 +13,33 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+
+  release:
     runs-on: ubuntu-latest
+    steps:
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: true
+          prerelease: true
+
+  build:
+    strategy:
+      matrix:
+        build: [linux, mac]
+        include:
+        - build: linux
+          os: ubuntu-latest
+        - build: mac
+          os: macos-latest
+
+    # The type of runner that the job will run on
+    runs-on: ${{matrix.os}}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -40,7 +63,7 @@ jobs:
           yarn
           yarn run build
 
-      - name: Package linux app
+      - name: Package app
         run: |
           cd electron
 
@@ -48,30 +71,10 @@ jobs:
           cp -R ../ui/build dist-ui/
 
           # run builder
-          yarn run pkg:linux
-
-      - name: Package Mac app
-        run: |
-          cd electron
-
-          # copy ui into electron work dir
-          cp -R ../ui/build dist-ui/
-
-          # run builder
-          yarn run pkg:mac
-
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          draft: true
-          prerelease: true
+          yarn run pkg:${{matrix.build}}
 
       - name: Upload Linux build
+        if: matrix.os == 'ubuntu-latest'
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -86,10 +89,12 @@ jobs:
           asset_content_type: application/x-xz-compressed-tar
 
       - name: Upload Mac build
+        if: matrix.os == 'macos'
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./electron/pkg/when-are-you-0.1.0.dmg
           asset_name: when-are-you-${{ github.ref }}.dmg
           asset_content_type: application/x-apple-diskimage
