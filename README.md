@@ -1,4 +1,4 @@
-# when-are-you
+# When are you?
 An application that lives on your tray and shows you 'when' people is.
 
 ## Disclaimer
@@ -11,6 +11,29 @@ learn solve my problem and learn some technologies along the way.
 I've tried this out on Mac OS Catalina and Kubuntu Linux 20.04.
 
 There are release builds that are not signed on purpose, I didn't want to spend time/money there.
+
+## About the app
+
+### How does it look like?
+
+<img src='./images/ui.jpg' />
+
+### Adding a new person
+
+<img src='./images/add-new-person.jpg' />
+
+### Click the name to edit
+
+<img src='./images/click-to-edit-name.jpg' />
+
+### Click the timezone to edit
+
+<img src='./images/click-to-edit-timezone.jpg' />
+
+### Select a timezone from the dropdown
+
+<img src='./images/timezone-select.jpg' />
+
 
 ## Run app
 
