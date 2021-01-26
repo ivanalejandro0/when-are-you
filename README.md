@@ -12,6 +12,11 @@ I've tried this out on Mac OS Catalina and Kubuntu Linux 20.04.
 
 There are release builds that are not signed on purpose, I didn't want to spend time/money there.
 
+## Get the app
+
+Get your build from the <a href="https://github.com/ivanalejandro0/when-are-you/releases">releases page</a>.
+
+
 ## About the app
 
 ### How does it look like?
@@ -35,7 +40,11 @@ There are release builds that are not signed on purpose, I didn't want to spend 
 <img src='./images/timezone-select.jpg' />
 
 
-## Run app
+## For a developer
+
+Check out the configured Github Actions for a working example on how to build the app.
+
+### Run app from code
 
 ```
 # build UI
@@ -55,7 +64,7 @@ yarn run start
 ```
 
 
-## Build app
+### Building the app locally
 
 ```
 # build UI
