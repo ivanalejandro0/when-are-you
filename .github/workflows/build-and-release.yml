@@ -76,7 +76,7 @@ jobs:
           # run builder
           yarn run pkg:${{matrix.build}}
 
-      - name: Upload Linux build
+      - name: "Upload build: Linux"
         if: matrix.build == 'linux'
         uses: actions/upload-release-asset@v1
         env:
@@ -91,7 +91,7 @@ jobs:
           asset_name: when-are-you-${{ github.ref }}.tar.xz
           asset_content_type: application/x-xz-compressed-tar
 
-      - name: Upload Mac build
+      - name: "Upload build: Mac x64"
         if: matrix.build == 'mac'
         uses: actions/upload-release-asset@v1
         env:
@@ -100,4 +100,15 @@ jobs:
           upload_url: ${{ needs.create_release.outputs.upload_url }}
           asset_path: ./electron/pkg/when-are-you-0.1.0.dmg
           asset_name: when-are-you-${{ github.ref }}.dmg
+          asset_content_type: application/x-apple-diskimage
+
+      - name: "Upload build: Mac arm64"
+        if: matrix.build == 'mac'
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.create_release.outputs.upload_url }}
+          asset_path: ./electron/pkg/when-are-you-0.1.0-arm64.dmg
+          asset_name: when-are-you-${{ github.ref }}-arm64.dmg
           asset_content_type: application/x-apple-diskimage

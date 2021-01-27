@@ -11,7 +11,7 @@
 
     "pkg": "$npm_execpath run pkg:mac && $npm_execpath run pkg:linux",
     "pkg:linux": "electron-builder --config ./electron-builder-config.yaml --linux tar.xz",
-    "pkg:mac": "electron-builder --config ./electron-builder-config.yaml --mac",
+    "pkg:mac": "electron-builder --config ./electron-builder-config.yaml --mac --x64 --arm64",
 
     "pkg-dir": "$npm_execpath run pkg-dir:mac && $npm_execpath run pkg-dir:linux",
     "pkg-dir:linux": "electron-builder --config ./electron-builder-config.yaml --dir --linux tar.xz",
@@ -27,7 +27,7 @@
     "@typescript-eslint/eslint-plugin": "^4.8.1",
     "@typescript-eslint/parser": "^4.8.1",
     "electron": "^11.0.0",
-    "electron-builder": "^22.9.1",
+    "electron-builder": "^22.10.4",
     "eslint": "^7.0.0",
     "typescript": "^4.0.0"
   }
