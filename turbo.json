@@ -8,12 +8,12 @@
     "start": {
       "dependsOn": ["^start"]
     },
-    "electron#start": {
-      "dependsOn": ["electron#build"],
+    "desktop#start": {
+      "dependsOn": ["desktop#build"],
       "cache": false
     },
-    "electron#package": {
-      "dependsOn": ["ui#build", "electron#build"],
+    "desktop#package": {
+      "dependsOn": ["ui#build", "desktop#build"],
       "cache": false
     },
     "test": {

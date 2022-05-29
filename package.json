@@ -1,6 +1,7 @@
 {
   "name": "when-are-you",
-  "version": "1.0.0",
+  "description": "An application that lives on your tray and shows you 'when' people is.",
+  "version": "0.1.0",
   "repository": "git@github.com:ivanalejandro0/when-are-you.git",
   "author": "Ivan Alejandro <ivanalejandro0@gmail.com>",
   "license": "MIT",
@@ -11,6 +12,7 @@
   ],
   "scripts": {
     "build": "turbo run build",
+    "package": "turbo run package",
     "start": "NODE_ENV=dev turbo run start",
     "lint": "turbo run lint"
   },
