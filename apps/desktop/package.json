@@ -1,7 +1,6 @@
 {
-  "name": "when-are-you",
-  "version": "0.1.0",
-  "description": "An application that lives on your tray and shows you 'when' people is.",
+  "name": "desktop",
+  "version": "0.0.0",
   "main": "./dist/main.js",
   "scripts": {
     "build": "tsc",
