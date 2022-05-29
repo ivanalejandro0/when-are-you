@@ -9,4 +9,7 @@ module.exports = {
     '@snowpack/plugin-dotenv',
     '@snowpack/plugin-typescript',
   ],
+  devOptions: {
+    open: "none"
+  }
 };

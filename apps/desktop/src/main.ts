@@ -6,8 +6,7 @@ import { createTray, showWindowUnderTray } from "./tray";
 let mainWindow: Electron.BrowserWindow;
 let tray: Electron.Tray;
 
-// TODO: de-hardcode this
-const isProduction = true;
+const isProduction = process.env.NODE_ENV !== "dev";
 
 const UI_PATH = path.join(__dirname, "../dist-ui/");
 
