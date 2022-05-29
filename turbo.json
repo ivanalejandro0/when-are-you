@@ -1,0 +1,26 @@
+{
+  "$schema": "https://turborepo.org/schema.json",
+  "baseBranch": "origin/main",
+  "pipeline": {
+    "build": {
+      "dependsOn": ["^build"]
+    },
+    "start": {
+      "dependsOn": ["^start"]
+    },
+    "electron#start": {
+      "dependsOn": ["electron#build"],
+      "cache": false
+    },
+    "electron#package": {
+      "dependsOn": ["ui#build", "electron#build"],
+      "cache": false
+    },
+    "test": {
+      "outputs": []
+    },
+    "lint": {
+      "outputs": []
+    }
+  }
+}

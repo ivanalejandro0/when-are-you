@@ -1,0 +1,20 @@
+{
+  "name": "when-are-you",
+  "version": "1.0.0",
+  "repository": "git@github.com:ivanalejandro0/when-are-you.git",
+  "author": "Ivan Alejandro <ivanalejandro0@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+      "apps/*",
+      "packages/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "start": "NODE_ENV=dev turbo run start",
+    "lint": "turbo run lint"
+  },
+  "devDependencies": {
+    "turbo": "^1.2.14"
+  }
+}
