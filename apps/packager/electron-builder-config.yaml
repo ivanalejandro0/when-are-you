@@ -2,7 +2,8 @@ directories:
   output: ./pkg/
   buildResources: build
 appId: com.ivanalejandro0.when-are-you
-productName: when-are-you
+extraMetadata:
+  name: when-are-you
 files:
   - filter:
       - ./dist/**/*
