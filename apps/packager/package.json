@@ -13,7 +13,7 @@
     "package": "$npm_execpath run pkg-dir:linux",
 
     "pkg-dir": "$npm_execpath run pkg-dir:mac && $npm_execpath run pkg-dir:linux",
-    "pkg-dir:linux": "electron-builder --config ./electron-builder-config.yaml --dir --linux tar.xz",
+    "pkg-dir:linux": "electron-builder --config ./electron-builder-config.yaml --dir --linux",
     "pkg-dir:mac": "electron-builder --config ./electron-builder-config.yaml --dir --mac"
   },
   "devDependencies": {
