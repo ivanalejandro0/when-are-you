@@ -13,16 +13,17 @@ const UI_PATH = path.join(__dirname, "../dist-ui/");
 function interceptFileProtocol() {
   protocol.interceptFileProtocol("file", (request, callback) => {
     // remove the "file://" prefix from the url
-    let url = request.url.substr(7);
+    // let url = request.url.substring("file://".length);
+    let url = request.url.substring(7);
 
     // rewrite urls coming from the Snowpack build
     // into something Electron can reach
     if (
       url.startsWith("/_dist_/") ||
       url.startsWith("/web_modules/") ||
-      url.startsWith("/__snowpack__/")
+      url.startsWith("/_snowpack/")
     ) {
-      url = path.join(UI_PATH, url);
+      url = path.normalize(path.join(UI_PATH, url));
     }
 
     callback({ path: url });

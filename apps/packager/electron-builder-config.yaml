@@ -2,12 +2,13 @@ directories:
   output: ./pkg/
   buildResources: build
 appId: com.ivanalejandro0.when-are-you
+productName: when-are-you
 files:
   - filter:
       - ./dist/**/*
+      - ./dist-ui/**/*
       - ./clock.png
       - package.json
-      - ./dist-ui/**/*
 mac:
   category: your.app.category.type
 electronVersion: 19.0.1
