@@ -5,7 +5,7 @@
   "scripts": {
     "pkg": "$npm_execpath run pkg:mac && $npm_execpath run pkg:linux",
     "pkg:linux": "electron-builder --config ./electron-builder-config.yaml --linux tar.xz",
-    "pkg:mac": "electron-builder --config ./electron-builder-config.yaml --mac",
+    "pkg:mac": "electron-builder --config ./electron-builder-config.yaml --mac --x64 --arm64",
 
     "copy-electron": "rm -fr dist/; cp -R ../desktop/dist/ dist",
     "copy-ui": "rm -fr dist-ui/; cp -R ../ui/build/ dist-ui",
