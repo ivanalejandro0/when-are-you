@@ -70,8 +70,8 @@ jobs:
           # https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
           upload_url: ${{ needs.create_release.outputs.upload_url }}
           asset_path: ./electron/pkg/when-are-you-0.0.0.AppImage
-          asset_name: when-are-you-${{ github.ref }}.tar.xz
-          asset_content_type: application/x-xz-compressed-tar
+          asset_name: when-are-you-${{ github.ref }}.AppImage
+          asset_content_type: application/octet-stream
 
       - name: "Upload build: Mac x64"
         if: matrix.build == 'mac'
