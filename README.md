@@ -47,40 +47,20 @@ Check out the configured Github Actions for a working example on how to build th
 ### Run app from code
 
 ```
-# build UI
-cd ui
-yarn
-yarn run build
-
-# build electron
-cd ../electron
+# to install dependencies, just required the first time
 yarn
 
-# copy ui into electron work dir
-cp -R ../ui/build dist-ui/
-
-# Run electron
-yarn run start
+# to run the app
+yarn start
 ```
 
 
 ### Building the app locally
 
 ```
-# build UI
-cd ui
+# to install dependencies, just required the first time
 yarn
-yarn run build
 
-# build electron
-cd ../electron
-yarn
-yarn run build
-
-# copy ui into electron work dir
-cp -R ../ui/build dist-ui/
-
-# run builder
-yarn run pkg:mac  # only works on Mac
-yarn run pkg:linux
+# to package the app
+yarn package
 ```
