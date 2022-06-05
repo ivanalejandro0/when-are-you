@@ -12,4 +12,11 @@ files:
       - package.json
 mac:
   category: your.app.category.type
+  target:
+    target: dmg
+    arch:
+      - x64
+      - arm64
+linux:
+  target: appimage
 electronVersion: 19.0.1
